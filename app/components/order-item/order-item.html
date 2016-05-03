@@ -1,0 +1,28 @@
+<!--<button class="btn btn-warning" ng-click="edit()">Edit</button>-->
+<!--<button class="btn btn-danger" ng-click="delete()">Delete</button>-->
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="order in orders">
+        <td>{{order.product}}</td>
+        <td>{{order.quantity}}</td>
+        <td>{{order.unitPrice | currency:"$":2}}</td>
+        <td>{{order.quantity * order.unitPrice | currency:"$":2}}</td>
+    </tr>
+    <tr class="info">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{total | currency:"$":2}}</td>
+    </tr>
+    </tbody>
+</table>
+

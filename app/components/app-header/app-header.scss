@@ -1,0 +1,22 @@
+app-header{
+    display: block;
+    background-color: #F8F8F8;
+    box-shadow: 0 6px 4px -4px #aaa;
+    .brand{
+        img{
+            height: 60px;
+            width: 60px;
+        }
+        .title{
+            color: #707070;
+            font-size: 1.3em;
+        }
+    }
+    .button-group{
+        padding: 30px;
+
+        button:active {
+            background-color: #00b3ee;
+        }
+    }
+}

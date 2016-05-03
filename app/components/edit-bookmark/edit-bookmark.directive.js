@@ -1,7 +1,7 @@
 angular.module('test-app.components.edit-bookmark', [
 ]).directive('editBookmark', function () {
     return {
-        require:'^bookmarksApp',
+        require:'^customersApp',
         templateUrl: 'app/components/edit-bookmark/edit-bookmark.html',
         scope: {
             bookmark  : '='

@@ -1,11 +1,11 @@
-angular.module('test-app.components.bookmark-item', [
+angular.module('test-app.components.customer-item', [
 
-]).directive('bookmarkItem', function () {
+]).directive('customerItem', function () {
     return {
-        require:'^bookmarksApp',
-        templateUrl: 'app/components/bookmark-item/bookmark-item.html',
+        require:'^customersApp',
+        templateUrl: 'app/components/customer-item/customer-item.html',
         scope: {
-            bookmark: '='
+            customer: '='
         },
         link: function ( scope, element, attr, bookmarkAppCtrl) {
             scope.edit = function(){

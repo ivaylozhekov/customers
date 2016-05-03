@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <span class="brand">
+        <img ng-src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/128/Users-icon.png"/>
+        <span class="title">Customer Management</span>
+    </span>
+    <span class="button-group">
+        <button ng-class="{'btn btn-default': true, 'active': currentRoute==='customers'}" ng-click="appController.getCustomers()">Customers</button>
+        <button ng-class="{'btn btn-default': true, 'active': currentRoute==='orders'}" ng-click="appController.getOrders()">Orders</button>
+    </span>
+</div>
+

@@ -1,0 +1,12 @@
+<!--<button class="btn btn-warning" ng-click="edit()">Edit</button>-->
+<!--<button class="btn btn-danger" ng-click="delete()">Delete</button>-->
+
+    <div class="header">
+        <span class="title">{{customer.firstName}} {{customer.lastName}}</span>
+        <span class="glyphicon glyphicon-remove pull-right" title="Remove this Customer"></span>
+    </div>
+    <div class="details">
+        <div>{{customer.city}}</div>
+        <a>View {{customer.orders.length}} Orders</a>
+    </div>
+

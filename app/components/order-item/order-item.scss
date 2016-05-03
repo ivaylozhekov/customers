@@ -1,0 +1,15 @@
+order-item{
+    display: inline-block;
+    margin: 7px;
+    width: 100%;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+     .table{
+         margin-bottom: 0px;
+         thead{
+             background-color: #337ab7;
+             color: white;
+         }
+     }
+
+}

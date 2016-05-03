@@ -1,6 +1,0 @@
-<h2><span class="filterName">Filtered By Tag: {{filter.tag?filter.tag:"None"}}</span> | <a ng-click="clearFilter()">Clear Filter</a></h2>
-<ul class="itemList">
-    <li ng-repeat="item in items | filter : filter.tag">
-        <bookmark-item bookmark="item"></bookmark-item>
-    </li>
-</ul>

@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <h2><strong>
+        <span>All Customer Orders</span>
+    </strong></h2>
+    <div class="list">
+        <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" ng-repeat="customer in customerList | filter : filter.tag">
+            <span class="name">{{customer.firstName}} {{customer.lastName}}</span>
+            <order-item orders="customer.orders"></order-item>
+        </span>
+    </div>
+
+</div>

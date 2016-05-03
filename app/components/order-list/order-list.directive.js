@@ -1,20 +1,19 @@
-angular.module('test-app.components.bookmark-list', [
-    'ngRoute'
-]).directive('bookmarkList', function ($routeParams, $location) {
-    return {
-        templateUrl: 'app/components/bookmark-list/bookmark-list.html',
-        scope: {
-            items: "="
-        },
-        link: function ( $scope ) {
+angular.module('test-app.components.order-list', [
+    'ngRoute',
+    'test-app.components.order-item'
 
+]).directive('orderList', function ($routeParams, $location) {
+    return {
+        templateUrl: 'app/components/order-list/order-list.html',
+        scope: true,
+        link: function ( $scope ) {
             $scope.filter = {
                 tag: $routeParams.tagFilter
             };
             $scope.clearFilter = function () {
                 $scope.filter.tag= null;
                 $location.path('bookmarks/');
-            };
+            };            
         }
     };
 });
