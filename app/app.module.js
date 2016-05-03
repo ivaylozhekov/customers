@@ -1,25 +1,35 @@
-angular.module('gdansk-training', [
-    'gt.components.hello-world',
-    'gt.components.hello-world1',
-    'gt.components.custom-button',
-    'gt.components.sub-button',
-    'gt.components.form-sample',
-
-    'gdanskTraining.templates',
-    'gdanskTraining-constant',
-    'package-version'
-]).run(function ( $log, gdanskTrainingVersion, $rootScope ) {
-    $rootScope.field1 = 'root';
-    if ( !gdanskTrainingVersion ) { return; }
-    $log.info('app version: ' + gdanskTrainingVersion);
-}).directive('gdanskTraining', function () {
-    return { templateUrl: 'app/app.module.html' };
+angular.module('sofia-training', [
+    'test-app.components.bookmarks-app',
+    'test-app.components.edit-bookmark',
+    'test-app.components.bookmark-list',
+    'test-app.components.bookmark-item',
+    'sofiaTraining.templates',
+    'test-app.components.tag-map',
+    'test-app.components.tag-item',
+    'mongolab-factory',
+    'ngRoute'
+]).config(function ($routeProvider) {
+    $routeProvider.when('/bookmarks/:tagFilter', {
+        template: '<bookmarks-app></bookmarks-app>'
+    }).when('/bookmarks', {
+        template: '<bookmarks-app></bookmarks-app>'
+    }).otherwise({redirectTo: '/bookmarks'});
+})
+    .config(function (mongolabFactoryProvider) {
+    mongolabFactoryProvider.setConfigs({
+        dataBase: 'bookmark_app',
+        apiKey: 'OhOFdBA8xQXyRdCvEsPXZTn3_-pLoZyD'
+    });
 });
 
-angular.module('gdanskTraining.templates', []);
+//    .directive('sofiaTraining', function () {
+//    return { templateUrl: 'app/app.module.html' };
+// });
+
+angular.module('sofiaTraining.templates', []);
 
 try {
-    angular.module('gdanskTraining-constant');
-} catch ( error ) {
-    angular.module('gdanskTraining-constant', []).constant('gdanskTrainingVersion', null);
+    angular.module('sofiaTraining-constant');
+} catch (error) {
+    angular.module('sofiaTraining-constant', []).constant('sofiaTrainingVersion', null);
 }

@@ -1,0 +1,6 @@
+<h3>Bookmark's Tags</h3>
+<ul>
+    <li ng-repeat="tag in items | orderBy: 'name'">
+        <tag-item name="tag.name" count="tag.count"></tag-item>
+    </li>
+</ul>

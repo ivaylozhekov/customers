@@ -16,6 +16,7 @@ module.exports = function (config) {
             'resources/package-version/*.js',
             'resources/package-version/*spec.js',
             'bower_components/d3/d3.js',
+            'bower_components/angular-route/angular-route.js',
             'app/**/_*.js',
             'app/**/*.module.js',
             'app/**/*.directive.js',
