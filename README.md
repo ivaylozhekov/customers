@@ -1,1 +1,1 @@
-<a href="http://customers-app-ivaylo-zhekov.bitballoon.com/#/customers>Demo</a> 
+[Demo](http://customers-app-ivaylo-zhekov.bitballoon.com/#/customers)
