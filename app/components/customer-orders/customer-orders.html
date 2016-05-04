@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <h2>
+        <strong>
+            <span>Customer Orders</span>
+        </strong>
+    </h2>
+    <div class="list">
+        <span class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h4>
+                <strong>
+                    Orders for {{currentCustomer.firstName}} {{currentCustomer.lastName}}
+                </strong>
+            </h4>
+            <div>
+                {{currentCustomer.city}}
+            </div>
+            <order-item customer="currentCustomer"></order-item>
+        </span>
+    </div>
+
+</div>

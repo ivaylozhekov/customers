@@ -3,9 +3,7 @@ customer-item{
     border: 1px solid black;
     margin: 5px;
     width: 100%;
-    //min-width: 300px;
     .header{
-        background-color: #3366CC;
         height:30px;
         line-height: 30px;
         color: white;
@@ -15,15 +13,24 @@ customer-item{
             font-size: 1.2em;
         }
 
-        .glyphicon-remove{
+        .glyphicon-remove,
+        .glyphicon-pencil{
             cursor: pointer;
             line-height: 28px;
             width: 28px;
             text-align: center;
         }
-        .glyphicon-remove:hover{
+        .glyphicon-remove:hover,
+        .glyphicon-pencil:hover
+        {
             background-color: #3399CC;
         }
+    }
+    .header{
+        background-color: #337ab7;
+    }
+    .header.edit{
+        background-color: #5cb85c;
     }
     .details{
         padding: 7px;

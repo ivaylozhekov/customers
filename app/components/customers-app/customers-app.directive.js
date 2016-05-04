@@ -1,7 +1,8 @@
 angular.module('test-app.components.customers-app', [
     'ngRoute',
     'test-app.components.customer-list',
-    'test-app.components.order-list'
+    'test-app.components.order-list',
+    'test-app.components.customer-orders'
 ]).directive('customersApp', function () {
     return {
         templateUrl: 'app/components/customers-app/customers-app.html',
@@ -14,16 +15,22 @@ angular.module('test-app.components.customers-app', [
     $routeProvider.when('/orders', {
         template: '<order-list></order-list>'
     }).when('/orders/:customerId', {
-        template: '555'
+        template: '<customer-orders></customer-orders>'
     }).when('/customers', {
         template: '<customer-list></customer-list>'
     }).otherwise({redirectTo: '/customers'});
 }).controller('CustomersAppController', function ($scope, $rootScope, mongolabFactory, $location) {
-    initialize();
-    function initialize(){
-        getCurrentRoute();
-        $scope.currentBookmark = {};
-        $scope.tagMap = {};
+    getCurrentRoute();
+    $scope.customerList = [];
+    setCurrentCustomer = setCurrentCustomer.bind(this);
+    resetCurrentCustomer = resetCurrentCustomer.bind(this);
+    resetCurrentCustomer();
+
+    function setCurrentCustomer(customer){
+        this.currentCustomer = customer;
+    }
+    function resetCurrentCustomer(){
+        this.currentCustomer = {orders: []};
     }
 
     function getCurrentRoute(){
@@ -32,105 +39,55 @@ angular.module('test-app.components.customers-app', [
 
 
     this.getCustomers = function () {
+        resetCurrentCustomer();
         $location.path("/customers");
         getCurrentRoute();
     };
     this.getOrders = function () {
+        resetCurrentCustomer();
         $location.path("/orders");
         getCurrentRoute();
     };
 
     mongolabFactory.query().$promise.then(function(data){
-        $scope.customerList = [
-            {
-                firstName: 'Victor',
-                lastName: 'Brian',
-                city: 'Seatle',
-                orders: [
-                        {product: 'iPod', quantity: 1, unitPrice: 399.99},
-                        {product: 'Speakers', quantity: 1, unitPrice: 499.99}
-                ]
-            }, {
-                firstName: 'Lee',
-                lastName: 'Carroll',
-                city: 'Phoenix',
-                orders: [
-                    {product: 'Basket', quantity: 1, unitPrice: 29.99},
-                    {product: 'Needes', quantity: 1, unitPrice: 5.99},
-                    {product: 'Yarn', quantity: 4, unitPrice: 9.99}
-                ]
-            }, {
-                firstName: 'Albert', lastName: 'Einstein', city: 'New York City', orders: []
-            }, {
-                firstName: 'Lynette', lastName: 'Gonzalez', city: 'Albuquerque', orders: []
-            }, {
-                firstName: 'Jesse', lastName: 'Hawkins', city: 'Atlanta', orders: []
-            }, {
-                firstName: 'Shanika', lastName: 'Passmore', city: 'Orlando', orders: []
-            }, {
-                firstName: 'Eric', lastName: 'Pitman', city: 'Chicago', orders: []
-            }, {
-                firstName: 'Alice', lastName: 'Price', city: 'Cleveland', orders: []
-            }, {
-                firstName: 'Charles', lastName: 'Sutton', city: 'Quebec', orders: []
-            }, {
-                firstName: 'Gerard', lastName: 'Tucker', city: 'Buffalo', orders: []
-            }, {
-                firstName: 'Sonya', lastName: 'Williams', city: 'Los Angeles', orders: []
-            }
-        ];
-        //extractTagMaps();
+        $scope.customerList = data;
     });
 
-    function extractTagMaps(){
-        $scope.tagMap = $scope.bookmarkList.reduce(function (map, bookmark) {
-            bookmark.tags.split(',').forEach(function (tag) {
-                var _tag = tag.trim();
-                if(_tag.length>0){
-                    if (map[_tag]) {
-                        map[_tag]++;
-                    } else {
-                        map[_tag] = 1;
-                    }
-                }
-            });
-            return map;
-        }, {});
-    }
-
-    this.editBookmark = function (bookmark) {
-        $scope.currentBookmark = angular.copy(bookmark);
+    this.editCustomer = function (customer) {
+        setCurrentCustomer(angular.copy(customer));
     };
 
-    this.deleteBookmark = function (bookmark) {
-        return mongolabFactory.remove({id: bookmark._id.$oid}).$promise.then(function (resource) {
-            $scope.bookmarkList.splice($scope.bookmarkList.indexOf(bookmark), 1);
-            initializeCurrentBookmark();
-            extractTagMaps();
+    this.deleteCustomer = function (customer) {
+        return mongolabFactory.remove({id: customer._id.$oid}).$promise.then(function (resource) {
+            $scope.customerList.splice($scope.customerList.indexOf(customer), 1);
+            resetCurrentCustomer();
         });
     };
 
-    this.saveBookmark = function (bookmark) {
-        initializeCurrentBookmark();
-        if(bookmark._id !== undefined){
-            return mongolabFactory.update({id: bookmark._id.$oid}, bookmark).$promise.then(function (resource) {
-                var editedBookmark = $scope.bookmarkList.filter(function (obj) {
-                    return bookmark._id.$oid === obj._id.$oid;
+    this.saveCustomer = function (customer) {
+        if(customer._id !== undefined){
+            return mongolabFactory.update({id: customer._id.$oid}, customer).$promise.then(function (resource) {
+                var editedCustomer = $scope.customerList.filter(function (obj) {
+                    return customer._id.$oid === obj._id.$oid;
                 })[0];
-                editedBookmark._id = resource._id;
-                angular.extend(editedBookmark, bookmark);
-                extractTagMaps();
+                editedCustomer._id = resource._id;
+                angular.extend(editedCustomer, customer);
+                resetCurrentCustomer();
             });
         } else {
-            return mongolabFactory.save(bookmark).$promise.then(function (resource) {
-                bookmark._id = resource._id;
-                $scope.bookmarkList.push(bookmark);
-                extractTagMaps();
+            return mongolabFactory.save(customer).$promise.then(function (resource) {
+                customer._id = resource._id;
+                $scope.customerList.push(customer);
+                resetCurrentCustomer();
             });
         }
     };
 
-    this.clearCurrentBookmark = function(){
-        initializeCurrentBookmark();
-    }
+    this.clearCurrentCustomer = function(){
+        resetCurrentCustomer();
+    };
+
+    this.addOrder = function(customer){
+        customer.orders.push({});
+    };
 });

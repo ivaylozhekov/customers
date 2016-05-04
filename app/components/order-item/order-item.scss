@@ -1,6 +1,6 @@
 order-item{
     display: inline-block;
-    margin: 7px;
+    margin:  7px 0 7px 0;
     width: 100%;
     border: 1px solid #bbb;
     border-radius: 4px;
@@ -11,5 +11,35 @@ order-item{
              color: white;
          }
      }
+    .order-item{
+        td.actions{
+            padding:0px;
+            color: #006699;
+            font-size: 0.9em;
+            vertical-align: middle;
+            .glyphicon{
+                margin-top: -2px;
+                padding: 0 8px 0 8px;
+                height:34px;
+                line-height: 35px;
+                cursor: pointer;
+            }
+            .glyphicon:hover{
+                background-color: #E8E8E8;
+            }
+            .glyphicon-remove{
+                color: #d9534f;
+                margin-right: 1px;
+            }
+        }
+    }
+
+    .new-order{
+        td{
+            .btn-group{
+                width: 100%;
+            }
+        }
+    }
 
 }

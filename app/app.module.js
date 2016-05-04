@@ -1,10 +1,7 @@
 angular.module('sofia-training', [
     'test-app.components.app-header',
     'test-app.components.customers-app',
-    'test-app.components.edit-bookmark',    
     'sofiaTraining.templates',
-    'test-app.components.tag-map',
-    'test-app.components.tag-item',
     'mongolab-factory'
 ])
     .config(function (mongolabFactoryProvider) {

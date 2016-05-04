@@ -2,29 +2,32 @@
     <h2><strong>
         <span>Customers</span>
     </strong></h2>
-    <!--<h2><span class="filterName">Filtered By Tag: {{filter.tag?filter.tag:"None"}}</span> | <a ng-click="clearFilter()">Clear Filter</a></h2>-->
 
     <form>
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="First Name">
+            <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="appController.currentCustomer.firstName">
         </div>
         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+            <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="appController.currentCustomer.lastName">
         </div>
         <div class="form-group col-xs-12 col-sm-8 col-md-8 col-lg-4 col-xl-4">
             <label for="city">City</label>
-            <input type="text" class="form-control" id="city" placeholder="City">
+            <input type="text" class="form-control" id="city" placeholder="City" ng-model="appController.currentCustomer.city">
         </div>
         <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-2 col-xl-2">
-            <label for="d" style="color:white">.</label>
-            <button class="form-control btn btn-info" id="d" placeholder="City">Add Customer</button>
+            <label style="color:white">.</label>
+            <div ng-hide="appController.currentCustomer._id" class="form-control btn btn-info" ng-click="appController.saveCustomer(appController.currentCustomer)">Add Customer</div>
+            <div ng-show="appController.currentCustomer._id" class="form-control btn-group" role="group" aria-label="btns">
+                <button type="button" class="btn btn-success" ng-click="appController.saveCustomer(appController.currentCustomer)">Save</button>
+                <button type="button" class="btn btn-danger"  ng-click="appController.clearCurrentCustomer()">Cancel</button>
+            </div>
         </div>
     </form>
 
     <div class="list">
-        <span class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" ng-repeat="customer in customerList | filter : filter.tag">
+        <span class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" ng-repeat="customer in customerList | filter : filter.tag | orderBy:'firstName'">
             <customer-item customer="customer"></customer-item>
         </span>
     </div>

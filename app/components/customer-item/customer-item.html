@@ -1,12 +1,11 @@
-<!--<button class="btn btn-warning" ng-click="edit()">Edit</button>-->
-<!--<button class="btn btn-danger" ng-click="delete()">Delete</button>-->
-
-    <div class="header">
-        <span class="title">{{customer.firstName}} {{customer.lastName}}</span>
-        <span class="glyphicon glyphicon-remove pull-right" title="Remove this Customer"></span>
-    </div>
-    <div class="details">
-        <div>{{customer.city}}</div>
-        <a>View {{customer.orders.length}} Orders</a>
-    </div>
+<div ng-class="{'header': true, 'edit': currentCustomer._id.$oid === customer._id.$oid}">
+    <span class="title">{{customer.firstName}} {{customer.lastName}}</span>
+    <span ng-show="currentCustomer._id.$oid === customer._id.$oid"><span class="glyphicon glyphicon-chevron-left"></span>Editing...</span>
+    <span class="glyphicon glyphicon-remove pull-right" title="Remove this Customer" ng-click="delete()"></span>
+    <span ng-hide="currentCustomer._id.$oid === customer._id.$oid" class="glyphicon glyphicon-pencil pull-right" title="Edit this Customer" ng-click="edit()"></span>
+</div>
+<div class="details">
+    <div>{{customer.city}}</div>
+    <a ng-click="showOrders()">View {{customer.orders.length}} Orders</a>
+</div>
 

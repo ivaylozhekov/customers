@@ -1,6 +1,3 @@
-<!--<button class="btn btn-warning" ng-click="edit()">Edit</button>-->
-<!--<button class="btn btn-danger" ng-click="delete()">Delete</button>-->
-
 <table class="table">
     <thead>
     <tr>
@@ -8,20 +5,54 @@
         <th>Quantity</th>
         <th>Unit Price</th>
         <th>Total</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="order in orders">
-        <td>{{order.product}}</td>
-        <td>{{order.quantity}}</td>
-        <td>{{order.unitPrice | currency:"$":2}}</td>
-        <td>{{order.quantity * order.unitPrice | currency:"$":2}}</td>
+    <tr ng-repeat="order in customer.orders" class="order-item">
+        <td>
+            <span ng-hide="currentOrder.id===order.id">{{order.product}}</span>
+            <input type="text" name="product" ng-show="currentOrder.id===order.id" class="form-control" placeholder="Product Name" ng-model="currentOrder.product" required/>
+        </td>
+        <td>
+            <span ng-hide="currentOrder.id===order.id">{{order.quantity}}</span>
+            <input type="number" name="quantity" ng-show="currentOrder.id===order.id" class="form-control" placeholder="Quantity" ng-model="currentOrder.quantity" required/>
+        </td>
+        <td>
+            <span ng-hide="currentOrder.id===order.id">{{order.unitPrice | currency:"$":2}}</span>
+            <input type="number" name="unitPrice" ng-show="currentOrder.id===order.id" class="form-control" placeholder="Unit Price" ng-model="currentOrder.unitPrice" required/>
+        </td>
+        <td>
+            <span ng-hide="currentOrder.id===order.id">{{order.quantity * order.unitPrice | currency:"$":2}}</span>
+            <div ng-show="currentOrder.id===order.id" class="btn-group" role="group" aria-label="btns">
+                <button class="btn btn-success" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                <button class="btn btn-danger" ng-click="save()"><span class="glyphicon glyphicon-floppy-remove"></span> Cancel</button>
+            </div>
+        </td>
+        <td class="actions">
+            <span class="glyphicon glyphicon-remove pull-right" title="Remove this Order" ng-click="delete(order)"></span>
+            <span ng-hide="currentOrder.id===order.id" class="glyphicon glyphicon-pencil pull-right" title="Edit this Order" ng-click="edit(order)"></span>
+        </td>
+    </tr>
+    <tr ng-show="isAddMode" class="new-order">
+        <td><label>New Order:</label><input type="text" class="form-control" placeholder="Product Name" ng-model="currentOrder.product"/></td>
+        <td><label style="color: white">.</label><input type="number" class="form-control" placeholder="Quantity" ng-model="currentOrder.quantity"/></td>
+        <td><label style="color: white">.</label><input type="number" class="form-control" placeholder="Unit Price" ng-model="currentOrder.unitPrice"/></td>
+        <td>
+            <label style="color: white">.</label>
+            <div class="btn-group" role="group" aria-label="btns">
+                <button class="btn btn-success" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                <button class="btn btn-danger" ng-click="cancelEdit()"><span class="glyphicon glyphicon-floppy-remove"></span> Cancel</button>
+            </div>
+        </td>
+        <td></td>
     </tr>
     <tr class="info">
-        <td></td>
+        <td><button class="btn btn-info" ng-click="add()"><span class="glyphicon glyphicon-plus"></span> Add Order</button></td>
         <td></td>
         <td></td>
         <td>{{total | currency:"$":2}}</td>
+        <td></td>
     </tr>
     </tbody>
 </table>

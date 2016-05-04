@@ -4,4 +4,11 @@ customer-list{
         width:100%;
         margin: 20px 0 20px 0;
     }
+    .form-control.btn-group{
+        padding: 0px;
+        border: none;
+        .btn{
+            width:50%;
+        }
+    }
 }
